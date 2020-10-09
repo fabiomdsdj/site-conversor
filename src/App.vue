@@ -17,7 +17,7 @@
         >
         </v-app-bar-nav-icon>
       </template>
-      <v-list>
+      <v-list width="400">
         <v-list-item
           v-for="(item) in items"
           :key="item.title"
@@ -42,6 +42,7 @@
           justify="center"
           align="center"
         >
+        <router-link to="/">
           <div class="d-flex align-center">
             <v-img
               alt="Vuetify Logo"
@@ -61,6 +62,7 @@
               width="150"
             />
           </div>
+        </router-link>
         </v-row>
       </v-toolbar-title>
       <v-menu open-on-hover>
@@ -74,7 +76,7 @@
           <v-icon>mdi-account-star</v-icon>
         </v-btn>
       </template>
-      <v-list>
+      <v-list width="400">
         <v-list-item
           v-for="(item) in items1"
           :key="item.title"
@@ -99,17 +101,21 @@
 </template>
 
 <script>
+
 export default {
   name: 'App',
 
   data: () => ({
     items: [
       { title: 'Home', icon: 'mdi-home-import-outline', link:'/'},
+      { title: 'Length', icon: 'mdi-ruler', link:'/length'},
       { title: 'Volume', icon: 'mdi-beaker-outline', link:'/volume'},
-      { title: 'Comprimento', icon: 'mdi-ruler', link:'/length'},
+      { title: 'Time', icon: 'mdi-calendar-clock', link:'/time'},
+      { title: 'Temperature', icon: 'mdi-coolant-temperature', link:'/temperature'},
+      { title: 'Weight', icon: 'mdi-weight-kilogram', link:'/weight'},
     ],
     items1: [
-      { title: 'Nos ajude !', icon: 'mdi-hand-heart-outline', link:'/donate'},
+      { title: 'Help us !', icon: 'mdi-hand-heart-outline', link:'/donate'},
     ],
   }),
   methods: {

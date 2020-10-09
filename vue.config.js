@@ -9,7 +9,7 @@ module.exports = {
     plugins: [
       new PrerenderSPAPlugin({
         staticDir: path.join(__dirname, 'dist'),
-        routes: ['/', '/volume', '/length', '/donate',],
+        routes: ['/', '/home', '/volume', '/length', '/donate', '/time', '/temperature', '/weight' ],
       }),
     ],
   },

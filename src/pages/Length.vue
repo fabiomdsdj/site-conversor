@@ -4,139 +4,137 @@
       align="center"
       justify="center"
     >
-      <v-card
-        rounded="lg"
-        class="mx-auto my-3 pa-7"
-        width="455"
-        elevation="17"
-      >
-      <h1 align="center">{{ pageTitle }}</h1>
-      <p align="justify">
-        O comprimento é uma magnitude criada para medir a distância entre dois pontos.
-        As unidades de comprimento normalmente conhecidas são: quilômetro, hectômetro, decâmetro, metro, decímetro, centímetro e milímetro. 
-      </p>
-      
-      <v-divider />
-        <v-form
-            ref="form"
-            lazy-validation
-            @submit.prevent="register"
-        > 
-        <v-card-text>
-            Quero converter:
-            <v-text-field
-                v-model="valueConverter"
-                type="number"
-                :rules="[rules.required]"
-                label="digite o valor..."
+      <v-col cols="12" sm="4" md="8">
+        <v-card
+          rounded="lg"
+          class="ma-6 pa-7"
+          elevation="17"
+        >
+        <h1 align="center">{{ pageTitle }}</h1>
+        <p align="justify">
+          Length is a magnitude created to measure the distance between two points.
+          The units of length commonly known are: kilometer, hectometer, dekameter, meter, decimeter, centimeter and millimeter.
+        </p>
+        
+        <v-divider />
+          <v-form
+              ref="form"
+              lazy-validation
+              @submit.prevent="register"
+          > 
+          <v-card-text>
+              I want to convert:
+              <v-text-field
+                  v-model="valueConverter"
+                  type="number"
+                  :rules="[rules.required]"
+                  label="digite o valor..."
+                  outlined
+                  single-line
+                  required
+                  clearable
+              ></v-text-field>
+
+              From:
+              <v-select
+                v-model="select"
+                :items="items"
+                :rules="[v => !!v || 'Item is required']"
+                placeholder="Selecione..."
                 outlined
                 single-line
-                dense
+                flat
                 required
-                clearable
-            ></v-text-field>
+              ></v-select>
+              
+              To:
+              <v-select
+                v-model="select1"
+                :items="items"
+                :rules="[v => !!v || 'Item is required']"
+                placeholder="Selecione..."
+                outlined
+                single-line
+                flat
+                required
+              ></v-select>
 
-            De:
-            <v-select
-              v-model="select"
-              :items="items"
-              :rules="[v => !!v || 'Item is required']"
-              placeholder="Selecione..."
-              dense
-              outlined
-              single-line
-              flat
-              required
-            ></v-select>
-            
-            Para:
-            <v-select
-              v-model="select1"
-              :items="items"
-              :rules="[v => !!v || 'Item is required']"
-              placeholder="Selecione..."
-              dense
-              outlined
-              single-line
-              flat
-              required
-            ></v-select>
-
-              <div class="teal accent-2 text-center py-5 px-2">
-                <!-- CONVERT FROM kM-->
-                <h3 v-if=" select === 'km (Kilômetros)' && select1 === 'hm (hectômetros)' " align="center"> {{ this.valueConverter + select }} é igual a {{ this.result = this.valueConverter * 10 + select1 }}</h3>
-                <h3 v-else-if=" select === 'km (Kilômetros)' && select1 === 'dam (Decâmetros)' " align="center"> {{ this.valueConverter + select }} é igual a {{ this.result = this.valueConverter * 100 + select1 }}</h3>
-                <h3 v-else-if=" select === 'km (Kilômetros)' && select1 === 'm (Metros)' " align="center">{{ this.valueConverter + select }} é igual a {{ this.result = this.valueConverter * 1000 + select1}}</h3>
-                <h3 v-else-if=" select === 'km (Kilômetros)' && select1 === 'dm (Decímetros)' " align="center">{{ this.valueConverter + select }} é igual a {{ this.result = this.valueConverter * 10000 + select1 }}</h3>
-                <h3 v-else-if=" select === 'km (Kilômetros)' && select1 === 'cm (Centímetros)' " align="center"> {{ this.valueConverter + select }} é igual a {{ this.result = this.valueConverter * 100000 + select1 }}</h3>
-                <h3 v-else-if=" select === 'km (Kilômetros)' && select1 === 'mm (Milímetros)' " align="center"> {{ this.valueConverter + select }} é igual a {{ this.result = this.valueConverter * 1000000 + select1 }}</h3>
-                <h3 v-else-if=" select === 'km (Kilômetros)' && select1 === 'km (Kilômetros)' " align="center"> {{ this.valueConverter + select }} é igual a {{ this.result = this.valueConverter + select1 }}</h3>
+                <div class="teal accent-2 text-center py-7 px-2">
+                  <!-- CONVERT FROM kM-->
+                  <h3 v-if=" select === ' km(kilometers)' && select1 === ' hm(hectometers)' " align="center"> {{ this.valueConverter + select }} {{$t('messages.equal_to')}} {{ this.result = this.valueConverter * 10 + select1 }}</h3>
+                  <h3 v-else-if=" select === ' km(kilometers)' && select1 === ' dam(decameters)' " align="center"> {{ this.valueConverter + select }} {{$t('messages.equal_to')}} {{ this.result = this.valueConverter * 100 + select1 }}</h3>
+                  <h3 v-else-if=" select === ' km(kilometers)' && select1 === ' m(meters)' " align="center">{{ this.valueConverter + select }} {{$t('messages.equal_to')}} {{ this.result = this.valueConverter * 1000 + select1}}</h3>
+                  <h3 v-else-if=" select === ' km(kilometers)' && select1 === ' dm(decimeters)' " align="center">{{ this.valueConverter + select }} {{$t('messages.equal_to')}} {{ this.result = this.valueConverter * 10000 + select1 }}</h3>
+                  <h3 v-else-if=" select === ' km(kilometers)' && select1 === ' cm(centimeters)' " align="center"> {{ this.valueConverter + select }} {{$t('messages.equal_to')}} {{ this.result = this.valueConverter * 100000 + select1 }}</h3>
+                  <h3 v-else-if=" select === ' km(kilometers)' && select1 === ' mm(millimeters)' " align="center"> {{ this.valueConverter + select }} {{$t('messages.equal_to')}} {{ this.result = this.valueConverter * 1000000 + select1 }}</h3>
+                  <h3 v-else-if=" select === ' km(kilometers)' && select1 === ' km(kilometers)' " align="center"> {{ this.valueConverter + select }} {{$t('messages.equal_to')}} {{ this.result = this.valueConverter + select1 }}</h3>
 
 
-                <!-- CONVERT FROM hM-->
-                <h3 v-else-if=" select === 'hm (hectômetros)' && select1 === 'dam (Decâmetros)' " align="center">{{ this.valueConverter + select }} é igual a {{ this.result = this.valueConverter * 10 + select1 }}</h3>
-                <h3 v-else-if=" select === 'hm (hectômetros)' && select1 === 'm (Metros)' " align="center"> {{ this.valueConverter + select }} é igual a {{ this.result = this.valueConverter * 100 + select1 }}</h3>
-                <h3 v-else-if=" select === 'hm (hectômetros)' && select1 === 'dm (Decímetros)' " align="center"> {{ this.valueConverter + select }} é igual a {{ this.result = this.valueConverter * 1000 + select1 }}</h3>
-                <h3 v-else-if=" select === 'hm (hectômetros)' && select1 === 'cm (Centímetros)' " align="center"> {{ this.valueConverter + select }} é igual a {{ this.result = this.valueConverter * 10000 + select1 }}</h3>
-                <h3 v-else-if=" select === 'hm (hectômetros)' && select1 === 'mm (Milímetros)' " align="center"> {{ this.valueConverter + select }} é igual a {{ this.result = this.valueConverter * 100000 + select1 }}</h3>
+                  <!-- CONVERT FROM hM-->
+                  <h3 v-else-if=" select === ' hm(hectometers)' && select1 === ' dam(decameters)' " align="center">{{ this.valueConverter + select }} {{$t('messages.equal_to')}} {{ this.result = this.valueConverter * 10 + select1 }}</h3>
+                  <h3 v-else-if=" select === ' hm(hectometers)' && select1 === ' m(meters)' " align="center"> {{ this.valueConverter + select }} {{$t('messages.equal_to')}} {{ this.result = this.valueConverter * 100 + select1 }}</h3>
+                  <h3 v-else-if=" select === ' hm(hectometers)' && select1 === ' dm(decimeters)' " align="center"> {{ this.valueConverter + select }} {{$t('messages.equal_to')}} {{ this.result = this.valueConverter * 1000 + select1 }}</h3>
+                  <h3 v-else-if=" select === ' hm(hectometers)' && select1 === ' cm(centimeters)' " align="center"> {{ this.valueConverter + select }} {{$t('messages.equal_to')}} {{ this.result = this.valueConverter * 10000 + select1 }}</h3>
+                  <h3 v-else-if=" select === ' hm(hectometers)' && select1 === ' mm(millimeters)' " align="center"> {{ this.valueConverter + select }} {{$t('messages.equal_to')}} {{ this.result = this.valueConverter * 100000 + select1 }}</h3>
 
-                <h3 v-else-if=" select === 'hm (hectômetros)' && select1 === 'km (Kilômetros)' " align="center"> {{ this.valueConverter + select }} é igual a {{ this.result = this.valueConverter / 10 + select1 }}</h3>
-                <h3 v-else-if=" select === 'hm (hectômetros)' && select1 === 'hm (hectômetros)' " align="center"> {{ this.valueConverter + select }} é igual a {{ this.result = this.valueConverter + select1 }}</h3>
+                  <h3 v-else-if=" select === ' hm(hectometers)' && select1 === ' km(kilometers)' " align="center"> {{ this.valueConverter + select }}  {{$t('messages.equal_to')}} {{ this.result = this.valueConverter / 10 + select1 }}</h3>
+                  <h3 v-else-if=" select === ' hm(hectometers)' && select1 === ' hm(hectometers)' " align="center"> {{ this.valueConverter + select }} {{$t('messages.equal_to')}} {{ this.result = this.valueConverter + select1 }}</h3>
 
-                <!-- CONVERT FROM daM-->
-                <h3 v-else-if=" select === 'dam (Decâmetros)' && select1 === 'm (Metros)' " align="center"> {{ this.valueConverter + select }} é igual a {{ this.result = this.valueConverter * 10 + select1 }}</h3>
-                <h3 v-else-if=" select === 'dam (Decâmetros)' && select1 === 'dm (Decímetros)' " align="center">{{ this.valueConverter + select }} é igual a {{ this.result = this.valueConverter * 100 + select1 }}</h3>
-                <h3 v-else-if=" select === 'dam (Decâmetros)' && select1 === 'cm (Centímetros)' " align="center"> {{ this.valueConverter + select }} é igual a {{ this.result = this.valueConverter * 1000 + select1 }}</h3>
-                <h3 v-else-if=" select === 'dam (Decâmetros)' && select1 === 'mm (Milímetros)' " align="center"> {{ this.valueConverter + select }} é igual a {{ this.result = this.valueConverter * 10000 + select1 }}</h3>
+                  <!-- CONVERT FROM daM-->
+                  <h3 v-else-if=" select === ' dam(decameters)' && select1 === ' m(meters)' " align="center"> {{ this.valueConverter + select }} {{$t('messages.equal_to')}} {{ this.result = this.valueConverter * 10 + select1 }}</h3>
+                  <h3 v-else-if=" select === ' dam(decameters)' && select1 === ' dm(decimeters)' " align="center">{{ this.valueConverter + select }} {{$t('messages.equal_to')}} {{ this.result = this.valueConverter * 100 + select1 }}</h3>
+                  <h3 v-else-if=" select === ' dam(decameters)' && select1 === ' cm(centimeters)' " align="center"> {{ this.valueConverter + select }} {{$t('messages.equal_to')}} {{ this.result = this.valueConverter * 1000 + select1 }}</h3>
+                  <h3 v-else-if=" select === ' dam(decameters)' && select1 === ' mm(millimeters)' " align="center"> {{ this.valueConverter + select }} {{$t('messages.equal_to')}} {{ this.result = this.valueConverter * 10000 + select1 }}</h3>
 
-                <h3 v-else-if=" select === 'dam (Decâmetros)' && select1 === 'hm (hectômetros)' " align="center"> {{ this.valueConverter + select }} é igual a {{ this.result = this.valueConverter / 10 + select1 }}</h3>
-                <h3 v-else-if=" select === 'dam (Decâmetros)' && select1 === 'km (Kilômetros)' " align="center"> {{ this.valueConverter + select }} é igual a {{ this.result = this.valueConverter / 100 + select1 }}</h3>
-                <h3 v-else-if=" select === 'dam (Decâmetros)' && select1 === 'dam (Decâmetros)' " align="center"> {{ this.valueConverter + select }} é igual a {{ this.result = this.valueConverter + select1 }}</h3>
+                  <h3 v-else-if=" select === ' dam(decameters)' && select1 === ' hm(hectometers)' " align="center"> {{ this.valueConverter + select }} {{$t('messages.equal_to')}} {{ this.result = this.valueConverter / 10 + select1 }}</h3>
+                  <h3 v-else-if=" select === ' dam(decameters)' && select1 === ' km(kilometers)' " align="center"> {{ this.valueConverter + select }}  {{$t('messages.equal_to')}} {{ this.result = this.valueConverter / 100 + select1 }}</h3>
+                  <h3 v-else-if=" select === ' dam(decameters)' && select1 === ' dam(decameters)' " align="center"> {{ this.valueConverter + select }} {{$t('messages.equal_to')}} {{ this.result = this.valueConverter + select1 }}</h3>
 
-                <!-- CONVERT FROM M-->
-                <h3 v-else-if=" select === 'm (Metros)' && select1 === 'dm (Decímetros)' " align="center"> {{ this.valueConverter + select }} é igual a {{ this.result = this.valueConverter * 10 + select1 }}</h3>
-                <h3 v-else-if=" select === 'm (Metros)' && select1 === 'cm (Centímetros)' " align="center"> {{ this.valueConverter + select }} é igual a {{ this.result = this.valueConverter * 100 + select1 }}</h3>
-                <h3 v-else-if=" select === 'm (Metros)' && select1 === 'mm (Milímetros)' " align="center"> {{ this.valueConverter + select }} é igual a {{ this.result = this.valueConverter * 1000 + select1 }}</h3>
+                  <!-- CONVERT FROM M-->
+                  <h3 v-else-if=" select === ' m(meters)' && select1 === ' dm(decimeters)' " align="center"> {{ this.valueConverter + select }}  {{$t('messages.equal_to')}} {{ this.result = this.valueConverter * 10 + select1 }}</h3>
+                  <h3 v-else-if=" select === ' m(meters)' && select1 === ' cm(centimeters)' " align="center"> {{ this.valueConverter + select }} {{$t('messages.equal_to')}} {{ this.result = this.valueConverter * 100 + select1 }}</h3>
+                  <h3 v-else-if=" select === ' m(meters)' && select1 === ' mm(millimeters)' " align="center"> {{ this.valueConverter + select }}  {{$t('messages.equal_to')}} {{ this.result = this.valueConverter * 1000 + select1 }}</h3>
 
-                <h3 v-else-if=" select === 'm (Metros)' && select1 === 'dam (Decâmetros)' " align="center"> {{ this.valueConverter + select }} é igual a {{ this.result = this.valueConverter / 10 + select1 }}</h3>
-                <h3 v-else-if=" select === 'm (Metros)' && select1 === 'hm (hectômetros)' " align="center">  {{ this.valueConverter + select }} é igual a {{ this.result = this.valueConverter / 100 + select1 }}</h3>
-                <h3 v-else-if=" select === 'm (Metros)' && select1 === 'km (Kilômetros)' " align="center"> {{ this.valueConverter + select }} é igual a {{ this.result = this.valueConverter / 1000 + select1 }}</h3>
-                <h3 v-else-if=" select === 'm (Metros)' && select1 === 'm (Metros)' " align="center"> {{ this.valueConverter + select }} é igual a {{ this.result = this.valueConverter + select1 }}</h3>
+                  <h3 v-else-if=" select === ' m(meters)' && select1 === ' dam(decameters)' " align="center"> {{ this.valueConverter + select }}  {{$t('messages.equal_to')}} {{ this.result = this.valueConverter / 10 + select1 }}</h3>
+                  <h3 v-else-if=" select === ' m(meters)' && select1 === ' hm(hectometers)' " align="center">  {{ this.valueConverter + select }} {{$t('messages.equal_to')}} {{ this.result = this.valueConverter / 100 + select1 }}</h3>
+                  <h3 v-else-if=" select === ' m(meters)' && select1 === ' km(kilometers)' " align="center"> {{ this.valueConverter + select }} {{$t('messages.equal_to')}} {{ this.result = this.valueConverter / 1000 + select1 }}</h3>
+                  <h3 v-else-if=" select === ' m(meters)' && select1 === ' m(meters)' " align="center"> {{ this.valueConverter + select }} {{$t('messages.equal_to')}} {{ this.result = this.valueConverter + select1 }}</h3>
 
-                <!-- CONVERT FROM dm-->
-                <h3 v-else-if=" select === 'dm (Decímetros)' && select1 === 'cm (Centímetros)' " align="center"> {{ this.valueConverter + select }} é igual a {{ this.result = this.valueConverter * 10 + select1 }}</h3>
-                <h3 v-else-if=" select === 'dm (Decímetros)' && select1 === 'mm (Milímetros)' " align="center"> {{ this.valueConverter + select }} é igual a {{ this.result = this.valueConverter * 100 + select1 }}</h3>
+                  <!-- CONVERT FROM dm-->
+                  <h3 v-else-if=" select === ' dm(decimeters)' && select1 === ' cm(centimeters)' " align="center"> {{ this.valueConverter + select }} {{$t('messages.equal_to')}} {{ this.result = this.valueConverter * 10 + select1 }}</h3>
+                  <h3 v-else-if=" select === ' dm(decimeters)' && select1 === ' mm(millimeters)' " align="center"> {{ this.valueConverter + select }}  {{$t('messages.equal_to')}} {{ this.result = this.valueConverter * 100 + select1 }}</h3>
 
-                <h3 v-else-if=" select === 'dm (Decímetros)' && select1 === 'm (Metros)' " align="center"> {{ this.valueConverter + select }} é igual a {{ this.result = this.valueConverter / 10 + select1 }}</h3>
-                <h3 v-else-if=" select === 'dm (Decímetros)' && select1 === 'dam (Decâmetros)' " align="center"> {{ this.valueConverter + select }} é igual a {{ this.result = this.valueConverter / 100 + select1 }}</h3>
-                <h3 v-else-if=" select === 'dm (Decímetros)' && select1 === 'hm (hectômetros)' " align="center">{{ this.valueConverter + select }} é igual a {{ this.result = this.valueConverter / 1000 + select1 }}</h3>
-                <h3 v-else-if=" select === 'dm (Decímetros)' && select1 === 'km (Kilômetros)' " align="center"> {{ this.valueConverter + select }} é igual a {{ this.result = this.valueConverter / 10000 + select1 }}</h3>
-                <h3 v-else-if=" select === 'dm (Decímetros)' && select1 === 'dm (Decímetros)' " align="center"> {{ this.valueConverter + select }} é igual a {{ this.result = this.valueConverter + select1 }}</h3>
+                  <h3 v-else-if=" select === ' dm(decimeters)' && select1 === ' m(meters)' " align="center"> {{ this.valueConverter + select }} {{$t('messages.equal_to')}} {{ this.result = this.valueConverter / 10 + select1 }}</h3>
+                  <h3 v-else-if=" select === ' dm(decimeters)' && select1 === ' dam(decameters)' " align="center"> {{ this.valueConverter + select }} {{$t('messages.equal_to')}} {{ this.result = this.valueConverter / 100 + select1 }}</h3>
+                  <h3 v-else-if=" select === ' dm(decimeters)' && select1 === ' hm(hectometers)' " align="center">{{ this.valueConverter + select }}  {{$t('messages.equal_to')}} {{ this.result = this.valueConverter / 1000 + select1 }}</h3>
+                  <h3 v-else-if=" select === ' dm(decimeters)' && select1 === ' km(kilometers)' " align="center"> {{ this.valueConverter + select }}  {{$t('messages.equal_to')}} {{ this.result = this.valueConverter / 10000 + select1 }}</h3>
+                  <h3 v-else-if=" select === ' dm(decimeters)' && select1 === ' dm(decimeters)' " align="center"> {{ this.valueConverter + select }}  {{$t('messages.equal_to')}} {{ this.result = this.valueConverter + select1 }}</h3>
 
-                <!-- CONVERT FROM cm-->
-                <h3 v-else-if=" select === 'cm (Centímetros)' && select1 === 'mm (Milímetros)' " align="center"> {{ this.valueConverter + select }} é igual a {{ this.result = this.valueConverter * 10 + select1 }}</h3>
+                  <!-- CONVERT FROM cm-->
+                  <h3 v-else-if=" select === ' cm(centimeters)' && select1 === ' mm(millimeters)' " align="center"> {{ this.valueConverter + select }} {{$t('messages.equal_to')}} {{ this.result = this.valueConverter * 10 + select1 }}</h3>
 
-                <h3 v-else-if=" select === 'cm (Centímetros)' && select1 === 'dm (Decímetros)' " align="center"> {{ this.valueConverter + select }} é igual a {{ this.result = this.valueConverter / 10 + select1 }}</h3>
-                <h3 v-else-if=" select === 'cm (Centímetros)' && select1 === 'm (Metros)' " align="center"> {{ this.valueConverter + select }} é igual a {{ this.result = this.valueConverter / 100 + select1 }}</h3>
-                <h3 v-else-if=" select === 'cm (Centímetros)' && select1 === 'dam (Decâmetros)' " align="center"> {{ this.valueConverter + select }} é igual a {{ this.result = this.valueConverter / 1000 + select1 }}</h3>
-                <h3 v-else-if=" select === 'cm (Centímetros)' && select1 === 'hm (hectômetros)' " align="center"> {{ this.valueConverter + select }} é igual a {{ this.result = this.valueConverter / 10000 + select1 }}</h3>
-                <h3 v-else-if=" select === 'cm (Centímetros)' && select1 === 'km (Kilômetros)' " align="center"> {{ this.valueConverter + select }} é igual a {{ this.result = this.valueConverter / 100000 + select1 }}</h3>
-                <h3 v-else-if=" select === 'cm (Centímetros)' && select1 === 'cm (Centímetros)' " align="center"> {{ this.valueConverter + select }} é igual a {{ this.result = this.valueConverter + select1 }}</h3>
+                  <h3 v-else-if=" select === ' cm(centimeters)' && select1 === ' dm(decimeters)' " align="center"> {{ this.valueConverter + select }} {{$t('messages.equal_to')}} {{ this.result = this.valueConverter / 10 + select1 }}</h3>
+                  <h3 v-else-if=" select === ' cm(centimeters)' && select1 === ' m(meters)' " align="center"> {{ this.valueConverter + select }} {{$t('messages.equal_to')}} {{ this.result = this.valueConverter / 100 + select1 }}</h3>
+                  <h3 v-else-if=" select === ' cm(centimeters)' && select1 === ' dam(decameters)' " align="center"> {{ this.valueConverter + select }} {{$t('messages.equal_to')}} {{ this.result = this.valueConverter / 1000 + select1 }}</h3>
+                  <h3 v-else-if=" select === ' cm(centimeters)' && select1 === ' hm(hectometers)' " align="center"> {{ this.valueConverter + select }} {{$t('messages.equal_to')}} {{ this.result = this.valueConverter / 10000 + select1 }}</h3>
+                  <h3 v-else-if=" select === ' cm(centimeters)' && select1 === ' km(kilometers)' " align="center"> {{ this.valueConverter + select }}  {{$t('messages.equal_to')}} {{ this.result = this.valueConverter / 100000 + select1 }}</h3>
+                  <h3 v-else-if=" select === ' cm(centimeters)' && select1 === ' cm(centimeters)' " align="center"> {{ this.valueConverter + select }} {{$t('messages.equal_to')}} {{ this.result = this.valueConverter + select1 }}</h3>
 
-                <!-- CONVERT FROM mL-->
-                <h3 v-else-if=" select === 'mm (Milímetros)' && select1 === 'cm (Centímetros)' " align="center"> {{ this.valueConverter + select }} é igual a {{ this.result = this.valueConverter / 10 + select1 }}</h3>
-                <h3 v-else-if=" select === 'mm (Milímetros)' && select1 === 'dm (Decímetros)' " align="center"> {{ this.valueConverter + select }} é igual a {{ this.result = this.valueConverter / 100 + select1 }}</h3>
-                <h3 v-else-if=" select === 'mm (Milímetros)' && select1 === 'm (Metros)' " align="center"> {{ this.valueConverter + select }} é igual a {{ this.result = this.valueConverter / 1000 + select1 }}</h3>
-                <h3 v-else-if=" select === 'mm (Milímetros)' && select1 === 'dam (Decâmetros)' " align="center"> {{ this.valueConverter + select }} é igual a {{ this.result = this.valueConverter / 10000 + select1 }}</h3>
-                <h3 v-else-if=" select === 'mm (Milímetros)' && select1 === 'hm (hectômetros)' " align="center"> {{ this.valueConverter + select }} é igual a {{ this.result = this.valueConverter / 100000 + select1 }}</h3>
-                <h3 v-else-if=" select === 'mm (Milímetros)' && select1 === 'km (Kilômetros)' " align="center"> {{ this.valueConverter + select }} é igual a {{ this.result = this.valueConverter / 1000000 + select1 }}</h3>
-                <h3 v-else-if=" select === 'mm (Milímetros)' && select1 === 'mm (Milímetros)' " align="center"> {{ this.valueConverter + select }} é igual a {{ this.result = this.valueConverter + select1 }}</h3>
+                  <!-- CONVERT FROM mL-->
+                  <h3 v-else-if=" select === ' mm(millimeters)' && select1 === ' cm(centimeters)' " align="center"> {{ this.valueConverter + select }} {{$t('messages.equal_to')}} {{ this.result = this.valueConverter / 10 + select1 }}</h3>
+                  <h3 v-else-if=" select === ' mm(millimeters)' && select1 === ' dm(decimeters)' " align="center"> {{ this.valueConverter + select }}  {{$t('messages.equal_to')}} {{ this.result = this.valueConverter / 100 + select1 }}</h3>
+                  <h3 v-else-if=" select === ' mm(millimeters)' && select1 === ' m(meters)' " align="center"> {{ this.valueConverter + select }} {{$t('messages.equal_to')}} {{ this.result = this.valueConverter / 1000 + select1 }}</h3>
+                  <h3 v-else-if=" select === ' mm(millimeters)' && select1 === ' dam(decameters)' " align="center"> {{ this.valueConverter + select }} {{$t('messages.equal_to')}} {{ this.result = this.valueConverter / 10000 + select1 }}</h3>
+                  <h3 v-else-if=" select === ' mm(millimeters)' && select1 === ' hm(hectometers)' " align="center"> {{ this.valueConverter + select }} {{$t('messages.equal_to')}} {{ this.result = this.valueConverter / 100000 + select1 }}</h3>
+                  <h3 v-else-if=" select === ' mm(millimeters)' && select1 === ' km(kilometers)' " align="center"> {{ this.valueConverter + select }} {{$t('messages.equal_to')}} {{ this.result = this.valueConverter / 1000000 + select1 }}</h3>
+                  <h3 v-else-if=" select === ' mm(millimeters)' && select1 === ' mm(millimeters)' " align="center"> {{ this.valueConverter + select }} {{$t('messages.equal_to')}} {{ this.result = this.valueConverter + select1 }}</h3>
 
-                <h3 v-else align="center"> {{ this.valueConverter + select }} é igual a {{ this.result = result }} </h3>
-              </div>
-            </v-card-text>
-        </v-form>
-      </v-card>
+                  <h3 v-else align="center"> {{ this.valueConverter + select }} {{$t('messages.equal_to')}} {{ this.result = result }} </h3>
+                </div>
+              </v-card-text>
+          </v-form>
+        </v-card>
+      </v-col>
     </v-row>
   </v-app>
 </template>
@@ -147,30 +145,30 @@
     
     metaInfo: {
       htmlAttrs: {
-        lang: 'pt-BR',
+        lang: 'en',
       },
-      title: 'Tabela conversor de unidades - Comprimento, como converter - Labrador Tecnologia',
+      title: 'Unit converter table - Length, how to convert - Labrador Tecnologia',
       meta: [
         { name: 'author', content: 'Labrador Tecnologia' },
-        { name: 'description', content: 'Ferramenta para conversão de Unidades medida de comprimento, ideal para estudantes de engenharia' },
-        { name: 'keywords', content: 'conversão, conversor de medidas, conversor de medidas, conversor de unidades, tabela de medidas, tabela de unidades, conversor de comprimento' },
+        { name: 'description', content: 'Tool for converting Measured length units, ideal for engineering students' },
+        { name: 'keywords', content: 'conversion, measure converter, measure converter, unit converter, measure table, unit table, length converter' },
       ],
     },
     
     data: () => ({
-      pageTitle:'Comprimento',
+      pageTitle:'Length',
       valueConverter: '15',
-      select: 'm (Metros)',
-      select1: 'mm (Milímetros)',
+      select: ' m(meters)',
+      select1: ' mm(millimeters)',
       result: '',
       items:[
-        'km (Kilômetros)',
-        'hm (hectômetros)',
-        'dam (Decâmetros)',
-        'm (Metros)',
-        'dm (Decímetros)',
-        'cm (Centímetros)',
-        'mm (Milímetros)',    
+        ' km(kilometers)',
+        ' hm(hectometers)',
+        ' dam(decameters)',
+        ' m(meters)',
+        ' dm(decimeters)',
+        ' cm(centimeters)',
+        ' mm(millimeters)',    
       ],
       
       rules: {

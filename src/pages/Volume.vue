@@ -4,138 +4,136 @@
       align="center"
       justify="center"
     >
-      <v-card
-        rounded="lg"
-        class="mx-auto my-3 pa-7"
-        width="455"
-        elevation="17"
-      >
-      <h1 align="center">{{ pageTitle }}</h1>
-      <p align="justify">
-        O volume de um corpo é a quantidade de espaço ocupada por esse corpo. O volume tem unidades de tamanho cúbicos (por exemplo, cm³, m³, in³, etc.).
-        Sua unidade no Sistema internacional de unidades é o metro cúbico (m³). Contudo, não é considerado uma unidade fundamental do SI, pois pode ser calculado através dos comprimentos. A unidade mais comum utilizada é o litro. 
-      </p>
-      <v-divider />
-        <v-form
-            ref="form"
-            lazy-validation
-            @submit.prevent="register"
-        > 
-        <v-card-text>
-            Quero converter:
-            <v-text-field
-                v-model="valueConverter"
-                type="number"
-                :rules="[rules.required]"
-                label="digite o valor..."
+      <v-col cols="12" sm="4" md="8">
+        <v-card
+          rounded="lg"
+          class="ma-6 pa-7"
+          elevation="17"
+        >
+        <h1 align="center">{{ pageTitle }}</h1>
+        <p align="justify">
+          The volume of a body is the amount of space occupied by that body. The volume has cubic size units (for example, cm³, m³, in³, etc.).
+          Its unit in the International System of Units is the cubic meter (m³). However, it is not considered a fundamental SI unit, as it can be calculated using lengths. The most common unit used is the liter.
+        </p>
+        <v-divider />
+          <v-form
+              ref="form"
+              lazy-validation
+              @submit.prevent="register"
+          > 
+          <v-card-text>
+              I want to convert:
+              <v-text-field
+                  v-model="valueConverter"
+                  type="number"
+                  :rules="[rules.required]"
+                  label="digite o valor..."
+                  outlined
+                  single-line
+                  required
+                  clearable
+              ></v-text-field>
+
+              From:
+              <v-select
+                v-model="select"
+                :items="items"
+                :rules="[v => !!v || 'Item is required']"
+                placeholder="Selecione..."
                 outlined
                 single-line
-                dense
+                flat
                 required
-                clearable
-            ></v-text-field>
+              ></v-select>
+              
+              To:
+              <v-select
+                v-model="select1"
+                :items="items"
+                :rules="[v => !!v || 'Item is required']"
+                placeholder="Selecione..."
+                outlined
+                single-line
+                flat
+                required
+              ></v-select>
 
-            De:
-            <v-select
-              v-model="select"
-              :items="items"
-              :rules="[v => !!v || 'Item is required']"
-              placeholder="Selecione..."
-              dense
-              outlined
-              single-line
-              flat
-              required
-            ></v-select>
-            
-            Para:
-            <v-select
-              v-model="select1"
-              :items="items"
-              :rules="[v => !!v || 'Item is required']"
-              placeholder="Selecione..."
-              dense
-              outlined
-              single-line
-              flat
-              required
-            ></v-select>
-
-              <div class="teal accent-2 text-center py-5 px-2">
-                <!-- CONVERT FROM kL-->
-                <h3 v-if=" select === 'kl (Kilolitros)' && select1 === 'hl (hectolitros)' " align="center"> {{ this.valueConverter + select }} é igual a {{ this.result = this.valueConverter * 10 + select1 }}</h3>
-                <h3 v-else-if=" select === 'kl (Kilolitros)' && select1 === 'dal (Decalitros)' " align="center"> {{ this.valueConverter + select }} é igual a {{ this.result = this.valueConverter * 100 + select1 }}</h3>
-                <h3 v-else-if=" select === 'kl (Kilolitros)' && select1 === 'l (Litros)' " align="center"> {{ this.valueConverter + select }} é igual a {{ this.result = this.valueConverter * 1000 + select1}}</h3>
-                <h3 v-else-if=" select === 'kl (Kilolitros)' && select1 === 'dl (Decilitros)' " align="center"> {{ this.valueConverter + select }} é igual a {{ this.result = this.valueConverter * 10000 + select1 }}</h3>
-                <h3 v-else-if=" select === 'kl (Kilolitros)' && select1 === 'cl (Centilitros)' " align="center"> {{ this.valueConverter + select }} é igual a {{ this.result = this.valueConverter * 100000 + select1 }}</h3>
-                <h3 v-else-if=" select === 'kl (Kilolitros)' && select1 === 'ml (Mililitros)' " align="center"> {{ this.valueConverter + select }} é igual a {{ this.result = this.valueConverter * 1000000 + select1 }}</h3>
-                <h3 v-else-if=" select === 'kl (Kilolitros)' && select1 === 'kl (Kilolitros)' " align="center"> {{ this.valueConverter + select }} é igual a {{ this.result = this.valueConverter + select1 }}</h3>
+                <div class="teal accent-2 text-center py-7 px-2">
+                  <!-- CONVERT FROM kL-->
+                  <h3 v-if=" select === ' kl(kiloliters)' && select1 === ' hl(hectoliters)' " align="center"> {{ this.valueConverter + select }} {{$t('messages.equal_to')}} {{ this.result = this.valueConverter * 10 + select1 }}</h3>
+                  <h3 v-else-if=" select === ' kl(kiloliters)' && select1 === ' dal(decaliters)' " align="center"> {{ this.valueConverter + select }} {{$t('messages.equal_to')}} {{ this.result = this.valueConverter * 100 + select1 }}</h3>
+                  <h3 v-else-if=" select === ' kl(kiloliters)' && select1 === ' l(liters)' " align="center"> {{ this.valueConverter + select }} {{$t('messages.equal_to')}} {{ this.result = this.valueConverter * 1000 + select1}}</h3>
+                  <h3 v-else-if=" select === ' kl(kiloliters)' && select1 === ' dl(deciliters)' " align="center"> {{ this.valueConverter + select }} {{$t('messages.equal_to')}} {{ this.result = this.valueConverter * 10000 + select1 }}</h3>
+                  <h3 v-else-if=" select === ' kl(kiloliters)' && select1 === ' cl(centiliters)' " align="center"> {{ this.valueConverter + select }}{{$t('messages.equal_to')}} {{ this.result = this.valueConverter * 100000 + select1 }}</h3>
+                  <h3 v-else-if=" select === ' kl(kiloliters)' && select1 === ' ml(milliliters)' " align="center"> {{ this.valueConverter + select }} {{$t('messages.equal_to')}} {{ this.result = this.valueConverter * 1000000 + select1 }}</h3>
+                  <h3 v-else-if=" select === ' kl(kiloliters)' && select1 === ' kl(kiloliters)' " align="center"> {{ this.valueConverter + select }} {{$t('messages.equal_to')}} {{ this.result = this.valueConverter + select1 }}</h3>
 
 
-                <!-- CONVERT FROM hL-->
-                <h3 v-else-if=" select === 'hl (hectolitros)' && select1 === 'dal (Decalitros)' " align="center"> {{ this.valueConverter + select }} é igual a {{ this.result = this.valueConverter * 10 + select1 }}</h3>
-                <h3 v-else-if=" select === 'hl (hectolitros)' && select1 === 'l (Litros)' " align="center"> {{ this.valueConverter + select }} é igual a {{ this.result = this.valueConverter * 100 + select1 }}</h3>
-                <h3 v-else-if=" select === 'hl (hectolitros)' && select1 === 'dl (Decilitros)' " align="center"> {{ this.valueConverter + select }} é igual a {{ this.result = this.valueConverter * 1000 + select1 }}</h3>
-                <h3 v-else-if=" select === 'hl (hectolitros)' && select1 === 'cl (Centilitros)' " align="center"> {{ this.valueConverter + select }} é igual a {{ this.result = this.valueConverter * 10000 + select1 }}</h3>
-                <h3 v-else-if=" select === 'hl (hectolitros)' && select1 === 'ml (Mililitros)' " align="center"> {{ this.valueConverter + select }} é igual a {{ this.result = this.valueConverter * 100000 + select1 }}</h3>
+                  <!-- CONVERT FROM hL-->
+                  <h3 v-else-if=" select === ' hl(hectoliters)' && select1 === ' dal(decaliters)' " align="center"> {{ this.valueConverter + select }} {{$t('messages.equal_to')}} {{ this.result = this.valueConverter * 10 + select1 }}</h3>
+                  <h3 v-else-if=" select === ' hl(hectoliters)' && select1 === ' l(liters)' " align="center"> {{ this.valueConverter + select }} {{$t('messages.equal_to')}} {{ this.result = this.valueConverter * 100 + select1 }}</h3>
+                  <h3 v-else-if=" select === ' hl(hectoliters)' && select1 === ' dl(deciliters)' " align="center"> {{ this.valueConverter + select }} {{$t('messages.equal_to')}} {{ this.result = this.valueConverter * 1000 + select1 }}</h3>
+                  <h3 v-else-if=" select === ' hl(hectoliters)' && select1 === ' cl(centiliters)' " align="center"> {{ this.valueConverter + select }}{{$t('messages.equal_to')}} {{ this.result = this.valueConverter * 10000 + select1 }}</h3>
+                  <h3 v-else-if=" select === ' hl(hectoliters)' && select1 === ' ml(milliliters)' " align="center"> {{ this.valueConverter + select }} {{$t('messages.equal_to')}} {{ this.result = this.valueConverter * 100000 + select1 }}</h3>
 
-                <h3 v-else-if=" select === 'hl (hectolitros)' && select1 === 'kl (Kilolitros)' " align="center"> {{ this.valueConverter + select }} é igual a {{ this.result = this.valueConverter / 10 + select1 }}</h3>
-                <h3 v-else-if=" select === 'hl (hectolitros)' && select1 === 'hl (hectolitros)' " align="center"> {{ this.valueConverter + select }} é igual a {{ this.result = this.valueConverter + select1 }}</h3>
+                  <h3 v-else-if=" select === ' hl(hectoliters)' && select1 === ' kl(kiloliters)' " align="center"> {{ this.valueConverter + select }} {{$t('messages.equal_to')}} {{ this.result = this.valueConverter / 10 + select1 }}</h3>
+                  <h3 v-else-if=" select === ' hl(hectoliters)' && select1 === ' hl(hectoliters)' " align="center"> {{ this.valueConverter + select }}{{$t('messages.equal_to')}} {{ this.result = this.valueConverter + select1 }}</h3>
 
-                <!-- CONVERT FROM daL-->
-                <h3 v-else-if=" select === 'dal (Decalitros)' && select1 === 'l (Litros)' " align="center">{{ this.valueConverter + select }} é igual a {{ this.result = this.valueConverter * 10 + select1 }}</h3>
-                <h3 v-else-if=" select === 'dal (Decalitros)' && select1 === 'dl (Decilitros)' " align="center"> {{ this.valueConverter + select }} é igual a {{ this.result = this.valueConverter * 100 + select1 }}</h3>
-                <h3 v-else-if=" select === 'dal (Decalitros)' && select1 === 'cl (Centilitros)' " align="center"> {{ this.valueConverter + select }} é igual a {{ this.result = this.valueConverter * 1000 + select1 }}</h3>
-                <h3 v-else-if=" select === 'dal (Decalitros)' && select1 === 'ml (Mililitros)' " align="center"> {{ this.valueConverter + select }} é igual a {{ this.result = this.valueConverter * 10000 + select1 }}</h3>
+                  <!-- CONVERT FROM daL-->
+                  <h3 v-else-if=" select === ' dal(decaliters)' && select1 === ' l(liters)' " align="center">{{ this.valueConverter + select }} {{$t('messages.equal_to')}} {{ this.result = this.valueConverter * 10 + select1 }}</h3>
+                  <h3 v-else-if=" select === ' dal(decaliters)' && select1 === ' dl(deciliters)' " align="center"> {{ this.valueConverter + select }} {{$t('messages.equal_to')}} {{ this.result = this.valueConverter * 100 + select1 }}</h3>
+                  <h3 v-else-if=" select === ' dal(decaliters)' && select1 === ' cl(centiliters)' " align="center"> {{ this.valueConverter + select }}{{$t('messages.equal_to')}} {{ this.result = this.valueConverter * 1000 + select1 }}</h3>
+                  <h3 v-else-if=" select === ' dal(decaliters)' && select1 === ' ml(milliliters)' " align="center"> {{ this.valueConverter + select }} {{$t('messages.equal_to')}} {{ this.result = this.valueConverter * 10000 + select1 }}</h3>
 
-                <h3 v-else-if=" select === 'dal (Decalitros)' && select1 === 'hl (hectolitros)' " align="center"> {{ this.valueConverter + select }} é igual a {{ this.result = this.valueConverter / 10 + select1 }}</h3>
-                <h3 v-else-if=" select === 'dal (Decalitros)' && select1 === 'kl (Kilolitros)' " align="center">  {{ this.valueConverter + select }} é igual a {{ this.result = this.valueConverter / 100 + select1 }}</h3>
-                <h3 v-else-if=" select === 'dal (Decalitros)' && select1 === 'dal (Decalitros)' " align="center"> {{ this.valueConverter + select }} é igual a {{ this.result = this.valueConverter + select1 }}</h3>
+                  <h3 v-else-if=" select === ' dal(decaliters)' && select1 === ' hl(hectoliters)' " align="center"> {{ this.valueConverter + select }} {{$t('messages.equal_to')}} {{ this.result = this.valueConverter / 10 + select1 }}</h3>
+                  <h3 v-else-if=" select === ' dal(decaliters)' && select1 === ' kl(kiloliters)' " align="center">  {{ this.valueConverter + select }} {{$t('messages.equal_to')}} {{ this.result = this.valueConverter / 100 + select1 }}</h3>
+                  <h3 v-else-if=" select === ' dal(decaliters)' && select1 === ' dal(decaliters)' " align="center"> {{ this.valueConverter + select }} {{$t('messages.equal_to')}} {{ this.result = this.valueConverter + select1 }}</h3>
 
-                <!-- CONVERT FROM L-->
-                <h3 v-else-if=" select === 'l (Litros)' && select1 === 'dl (Decilitros)' " align="center"> {{ this.valueConverter + select }} é igual a {{ this.result = this.valueConverter * 10 + select1 }}</h3>
-                <h3 v-else-if=" select === 'l (Litros)' && select1 === 'cl (Centilitros)' " align="center"> {{ this.valueConverter + select }} é igual a {{ this.result = this.valueConverter * 100 + select1 }}</h3>
-                <h3 v-else-if=" select === 'l (Litros)' && select1 === 'ml (Mililitros)' " align="center"> {{ this.valueConverter + select }} é igual a {{ this.result = this.valueConverter * 1000 + select1 }}</h3>
+                  <!-- CONVERT FROM L-->
+                  <h3 v-else-if=" select === ' l(liters)' && select1 === ' dl(deciliters)' " align="center"> {{ this.valueConverter + select }} {{$t('messages.equal_to')}} {{ this.result = this.valueConverter * 10 + select1 }}</h3>
+                  <h3 v-else-if=" select === ' l(liters)' && select1 === ' cl(centiliters)' " align="center"> {{ this.valueConverter + select }}{{$t('messages.equal_to')}} {{ this.result = this.valueConverter * 100 + select1 }}</h3>
+                  <h3 v-else-if=" select === ' l(liters)' && select1 === ' ml(milliliters)' " align="center"> {{ this.valueConverter + select }} {{$t('messages.equal_to')}} {{ this.result = this.valueConverter * 1000 + select1 }}</h3>
 
-                <h3 v-else-if=" select === 'l (Litros)' && select1 === 'dal (Decalitros)' " align="center"> {{ this.valueConverter + select }} é igual a {{ this.result = this.valueConverter / 10 + select1 }}</h3>
-                <h3 v-else-if=" select === 'l (Litros)' && select1 === 'hl (hectolitros)' " align="center">  {{ this.valueConverter + select }} é igual a {{ this.result = this.valueConverter / 100 + select1 }}</h3>
-                <h3 v-else-if=" select === 'l (Litros)' && select1 === 'kl (Kilolitros)' " align="center"> {{ this.valueConverter + select }} é igual a {{ this.result = this.valueConverter / 1000 + select1 }}</h3>
-                <h3 v-else-if=" select === 'l (Litros)' && select1 === 'l (Litros)' " align="center"> {{ this.valueConverter + select }} é igual a {{ this.result = this.valueConverter + select1 }}</h3>
+                  <h3 v-else-if=" select === ' l(liters)' && select1 === ' dal(decaliters)' " align="center"> {{ this.valueConverter + select }} {{$t('messages.equal_to')}} {{ this.result = this.valueConverter / 10 + select1 }}</h3>
+                  <h3 v-else-if=" select === ' l(liters)' && select1 === ' hl(hectoliters)' " align="center">  {{ this.valueConverter + select }}{{$t('messages.equal_to')}} {{ this.result = this.valueConverter / 100 + select1 }}</h3>
+                  <h3 v-else-if=" select === ' l(liters)' && select1 === ' kl(kiloliters)' " align="center"> {{ this.valueConverter + select }}  {{$t('messages.equal_to')}} {{ this.result = this.valueConverter / 1000 + select1 }}</h3>
+                  <h3 v-else-if=" select === ' l(liters)' && select1 === ' l(liters)' " align="center"> {{ this.valueConverter + select }} {{$t('messages.equal_to')}} {{ this.result = this.valueConverter + select1 }}</h3>
 
-                <!-- CONVERT FROM dL-->
-                <h3 v-else-if=" select === 'dl (Decilitros)' && select1 === 'cl (Centilitros)' " align="center"> {{ this.valueConverter + select }} é igual a {{ this.result = this.valueConverter * 10 + select1 }}</h3>
-                <h3 v-else-if=" select === 'dl (Decilitros)' && select1 === 'ml (Mililitros)' " align="center"> {{ this.valueConverter + select }} é igual a {{ this.result = this.valueConverter * 100 + select1 }}</h3>
+                  <!-- CONVERT FROM dL-->
+                  <h3 v-else-if=" select === ' dl(deciliters)' && select1 === ' cl(centiliters)' " align="center"> {{ this.valueConverter + select }}{{$t('messages.equal_to')}} {{ this.result = this.valueConverter * 10 + select1 }}</h3>
+                  <h3 v-else-if=" select === ' dl(deciliters)' && select1 === ' ml (Mililitros)' " align="center"> {{ this.valueConverter + select }} {{$t('messages.equal_to')}} {{ this.result = this.valueConverter * 100 + select1 }}</h3>
 
-                <h3 v-else-if=" select === 'dl (Decilitros)' && select1 === 'l (Litros)' " align="center"> {{ this.valueConverter + select }} é igual a {{ this.result = this.valueConverter / 10 + select1 }}</h3>
-                <h3 v-else-if=" select === 'dl (Decilitros)' && select1 === 'dal (Decalitros)' " align="center"> {{ this.valueConverter + select }} é igual a {{ this.result = this.valueConverter / 100 + select1 }}</h3>
-                <h3 v-else-if=" select === 'dl (Decilitros)' && select1 === 'hl (hectolitros)' " align="center"> {{ this.valueConverter + select }} é igual a {{ this.result = this.valueConverter / 1000 + select1 }}</h3>
-                <h3 v-else-if=" select === 'dl (Decilitros)' && select1 === 'kl (Kilolitros)' " align="center"> {{ this.valueConverter + select }} é igual a {{ this.result = this.valueConverter / 10000 + select1 }}</h3>
-                <h3 v-else-if=" select === 'dl (Decilitros)' && select1 === 'dl (Decilitros)' " align="center"> {{ this.valueConverter + select }} é igual a {{ this.result = this.valueConverter + select1 }}</h3>
+                  <h3 v-else-if=" select === ' dl(deciliters)' && select1 === ' l(liters)' " align="center"> {{ this.valueConverter + select }} {{$t('messages.equal_to')}} {{ this.result = this.valueConverter / 10 + select1 }}</h3>
+                  <h3 v-else-if=" select === ' dl(deciliters)' && select1 === ' dal(decaliters)' " align="center"> {{ this.valueConverter + select }} {{$t('messages.equal_to')}} {{ this.result = this.valueConverter / 100 + select1 }}</h3>
+                  <h3 v-else-if=" select === ' dl(deciliters)' && select1 === ' hl(hectoliters)' " align="center"> {{ this.valueConverter + select }} {{$t('messages.equal_to')}} {{ this.result = this.valueConverter / 1000 + select1 }}</h3>
+                  <h3 v-else-if=" select === ' dl(deciliters)' && select1 === ' kl(kiloliters)' " align="center"> {{ this.valueConverter + select }}  {{$t('messages.equal_to')}} {{ this.result = this.valueConverter / 10000 + select1 }}</h3>
+                  <h3 v-else-if=" select === ' dl(deciliters)' && select1 === ' dl(deciliters)' " align="center"> {{ this.valueConverter + select }}  {{$t('messages.equal_to')}} {{ this.result = this.valueConverter + select1 }}</h3>
 
-                <!-- CONVERT FROM cL-->
-                <h3 v-else-if=" select === 'cl (Centilitros)' && select1 === 'ml (Mililitros)' " align="center"> {{ this.valueConverter + select }} é igual a {{ this.result = this.valueConverter * 10 + select1 }}</h3>
+                  <!-- CONVERT FROM cL-->
+                  <h3 v-else-if=" select === ' cl(centiliters)' && select1 === ' ml(milliliters)' " align="center"> {{ this.valueConverter + select }} {{$t('messages.equal_to')}} {{ this.result = this.valueConverter * 10 + select1 }}</h3>
 
-                <h3 v-else-if=" select === 'cl (Centilitros)' && select1 === 'dl (Decilitros)' " align="center"> {{ this.valueConverter + select }} é igual a {{ this.result = this.valueConverter / 10 + select1 }}</h3>
-                <h3 v-else-if=" select === 'cl (Centilitros)' && select1 === 'l (Litros)' " align="center">{{ this.valueConverter + select }} é igual a {{ this.result = this.valueConverter / 100 + select1 }}</h3>
-                <h3 v-else-if=" select === 'cl (Centilitros)' && select1 === 'dal (Decalitros)' " align="center"> {{ this.valueConverter + select }} é igual a {{ this.result = this.valueConverter / 1000 + select1 }}</h3>
-                <h3 v-else-if=" select === 'cl (Centilitros)' && select1 === 'hl (hectolitros)' " align="center"> {{ this.valueConverter + select }} é igual a {{ this.result = this.valueConverter / 10000 + select1 }}</h3>
-                <h3 v-else-if=" select === 'cl (Centilitros)' && select1 === 'kl (Kilolitros)' " align="center"> {{ this.valueConverter + select }} é igual a {{ this.result = this.valueConverter / 100000 + select1 }}</h3>
-                <h3 v-else-if=" select === 'cl (Centilitros)' && select1 === 'cl (Centilitros)' " align="center"> {{ this.valueConverter + select }} é igual a {{ this.result = this.valueConverter + select1 }}</h3>
+                  <h3 v-else-if=" select === ' cl(centiliters)' && select1 === ' dl(deciliters)' " align="center"> {{ this.valueConverter + select }} {{$t('messages.equal_to')}} {{ this.result = this.valueConverter / 10 + select1 }}</h3>
+                  <h3 v-else-if=" select === ' cl(centiliters)' && select1 === ' l(liters)' " align="center">{{ this.valueConverter + select }} {{$t('messages.equal_to')}} {{ this.result = this.valueConverter / 100 + select1 }}</h3>
+                  <h3 v-else-if=" select === ' cl(centiliters)' && select1 === ' dal(decaliters)' " align="center"> {{ this.valueConverter + select }} {{$t('messages.equal_to')}} {{ this.result = this.valueConverter / 1000 + select1 }}</h3>
+                  <h3 v-else-if=" select === ' cl(centiliters)' && select1 === ' hl(hectoliters)' " align="center"> {{ this.valueConverter + select }} {{$t('messages.equal_to')}} {{ this.result = this.valueConverter / 10000 + select1 }}</h3>
+                  <h3 v-else-if=" select === ' cl(centiliters)' && select1 === ' kl(kiloliters)' " align="center"> {{ this.valueConverter + select }}  {{$t('messages.equal_to')}} {{ this.result = this.valueConverter / 100000 + select1 }}</h3>
+                  <h3 v-else-if=" select === ' cl(centiliters)' && select1 === ' cl(centiliters)' " align="center"> {{ this.valueConverter + select }} {{$t('messages.equal_to')}} {{ this.result = this.valueConverter + select1 }}</h3>
 
-                <!-- CONVERT FROM mL-->
-                <h3 v-else-if=" select === 'ml (Mililitros)' && select1 === 'cl (Centilitros)' " align="center"> {{ this.valueConverter + select }} é igual a {{ this.result = this.valueConverter / 10 + select1 }}</h3>
-                <h3 v-else-if=" select === 'ml (Mililitros)' && select1 === 'dl (Decilitros)' " align="center"> {{ this.valueConverter + select }} é igual a {{ this.result = this.valueConverter / 100 + select1 }}</h3>
-                <h3 v-else-if=" select === 'ml (Mililitros)' && select1 === 'l (Litros)' " align="center"> {{ this.valueConverter + select }} é igual a {{ this.result = this.valueConverter / 1000 + select1 }}</h3>
-                <h3 v-else-if=" select === 'ml (Mililitros)' && select1 === 'dal (Decalitros)' " align="center"> {{ this.valueConverter + select }} é igual a {{ this.result = this.valueConverter / 10000 + select1 }}</h3>
-                <h3 v-else-if=" select === 'ml (Mililitros)' && select1 === 'hl (hectolitros)' " align="center"> {{ this.valueConverter + select }} é igual a {{ this.result = this.valueConverter / 100000 + select1 }}</h3>
-                <h3 v-else-if=" select === 'ml (Mililitros)' && select1 === 'kl (Kilolitros)' " align="center"> {{ this.valueConverter + select }} é igual a {{ this.result = this.valueConverter / 1000000 + select1 }}</h3>
-                <h3 v-else-if=" select === 'ml (Mililitros)' && select1 === 'ml (Mililitros)' " align="center"> {{ this.valueConverter + select }} é igual a {{ this.result = this.valueConverter + select1 }}</h3>
+                  <!-- CONVERT FROM mL-->
+                  <h3 v-else-if=" select === ' ml(milliliters)' && select1 === ' cl(centiliters)' " align="center"> {{ this.valueConverter + select }} {{$t('messages.equal_to')}} {{ this.result = this.valueConverter / 10 + select1 }}</h3>
+                  <h3 v-else-if=" select === ' ml(milliliters)' && select1 === ' dl(deciliters)' " align="center"> {{ this.valueConverter + select }}  {{$t('messages.equal_to')}} {{ this.result = this.valueConverter / 100 + select1 }}</h3>
+                  <h3 v-else-if=" select === ' ml(milliliters)' && select1 === ' l(liters)' " align="center"> {{ this.valueConverter + select }} {{$t('messages.equal_to')}} {{ this.result = this.valueConverter / 1000 + select1 }}</h3>
+                  <h3 v-else-if=" select === ' ml(milliliters)' && select1 === ' dal(decaliters)' " align="center"> {{ this.valueConverter + select }} {{$t('messages.equal_to')}} {{ this.result = this.valueConverter / 10000 + select1 }}</h3>
+                  <h3 v-else-if=" select === ' ml(milliliters)' && select1 === ' hl(hectoliters)' " align="center"> {{ this.valueConverter + select }} {{$t('messages.equal_to')}} {{ this.result = this.valueConverter / 100000 + select1 }}</h3>
+                  <h3 v-else-if=" select === ' ml(milliliters)' && select1 === ' kl(kiloliters)' " align="center"> {{ this.valueConverter + select }}  {{$t('messages.equal_to')}} {{ this.result = this.valueConverter / 1000000 + select1 }}</h3>
+                  <h3 v-else-if=" select === ' ml(milliliters)' && select1 === ' ml(milliliters)' " align="center"> {{ this.valueConverter + select }}  {{$t('messages.equal_to')}} {{ this.result = this.valueConverter + select1 }}</h3>
 
-                <h3 v-else align="center"> {{ this.valueConverter + select }} é igual a {{ this.result = result }} </h3>
-              </div>
-            </v-card-text>
-        </v-form>
-      </v-card>
+                  <h3 v-else align="center"> {{ this.valueConverter + select }} {{$t('messages.equal_to')}} {{ this.result = result }} </h3>
+                </div>
+              </v-card-text>
+          </v-form>
+        </v-card>
+      </v-col>
     </v-row>
   </v-app>
 </template>
@@ -146,30 +144,30 @@
 
     metaInfo: {
       htmlAttrs: {
-        lang: 'pt-BR',
+        lang: 'en',
       },
-      title: 'Tabela conversor de unidades - Volume, Capacidade, como converter - Labrador Tecnologia',
+      title: 'Unit converter table - Volume, Capacity, how to convert - Labrador Tecnologia',
       meta: [
         { name: 'author', content: 'Labrador Tecnologia' },
-        { name: 'description', content: 'Ferramenta para conversão de Unidades medida volume e capacidade, ideal para estudantes de engenharia ' },
-        { name: 'keywords', content: 'conversão, conversor de medidas, conversor de medidas, conversor de unidades, tabela de medidas, tabela de unidades, conversor de volume, conversor de capacidade' },
+        { name: 'description', content: 'Conversion tool for Units measured volume and capacity, ideal for engineering students' },
+        { name: 'keywords', content: 'conversion, measure converter, measure converter, unit converter, measure table, unit table, volume converter, capacity converter' },
       ],
     },
     
     data: () => ({
       pageTitle:'Volume',
       valueConverter: '15',
-      select: 'l (Litros)',
-      select1: 'ml (Mililitros)',
+      select: ' l(liters)',
+      select1: ' ml(milliliters)',
       result: '',
       items:[
-        'kl (Kilolitros)',
-        'hl (hectolitros)',
-        'dal (Decalitros)',
-        'l (Litros)',
-        'dl (Decilitros)',
-        'cl (Centilitros)',
-        'ml (Mililitros)',    
+        ' kl(kiloliters)',
+        ' hl(hectoliters)',
+        ' dal(decaliters)',
+        ' l(liters)',
+        ' dl(deciliters)',
+        ' cl(centiliters)',
+        ' ml(milliliters)',    
       ],
       
       rules: {
